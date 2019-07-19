@@ -21,7 +21,7 @@ def __virtual__():
     '''
     Module load only if iocage is installed
     '''
-    if salt.utils.which('iocage'):
+    if salt.utils.path.which('iocage'):
         return __virtualname__
     else:
         return False
