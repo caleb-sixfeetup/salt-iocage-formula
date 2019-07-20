@@ -53,7 +53,7 @@ def _list_properties(jail_name, **kwargs):
     jail name)
     '''
     if jail_name == 'defaults':
-        cmd = 'iocage defaults'
+        cmd = 'iocage get all default'
     else:
         cmd = 'iocage get all %s' % (jail_name,)
 
