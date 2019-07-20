@@ -95,14 +95,16 @@ def _list(option=None, **kwargs):
             headers = ['RELEASE']
         else:
             headers = [_.strip() for _ in lines[1].split('|') if len(_) > 1]
+        log.debug('98:  %s', headers)
         
         jails = []
         if len(lines) > 2:
             for l in lines[2:]:
                 log.debug("102: %s",l)
                 # omit all non-iocage jails
-                if (re.match('^[-+=]*$', l) is not None or
-                        l == '--- non iocage jails currently active ---'):
+                if re.match('^[-+=]*$', l) is not None:
+                    continue
+                if l == '--- non iocage jails currently active ---':
                     break
                 jails.append({
                     headers[k]: v for k, v in enumerate([_.strip() for _ in l.split('|')
