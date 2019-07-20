@@ -6,7 +6,7 @@ from __future__ import absolute_import
 
 # Import python libs
 # import os
-
+import re
 import logging
 # Import salt libs
 import salt.utils
@@ -90,18 +90,19 @@ def _list(option=None, **kwargs):
         cmd = '%s %s' % (cmd, option)
     lines = _exec(cmd, **kwargs).split('\n')
     log.debug('92:  %s',lines)
-    if len(lines) > 0:
+    if len(lines) > 2:
         if option == '-r':
             headers = ['RELEASE']
         else:
-            headers = [_.strip() for _ in lines[0].split('|') if len(_) > 0]
+            headers = [_.strip() for _ in lines[1].split('|') if len(_) > 1]
         
         jails = []
-        if len(lines) > 1:
-            for l in lines[1:]:
+        if len(lines) > 2:
+            for l in lines[2:]:
                 log.debug("102: %s",l)
                 # omit all non-iocage jails
-                if l == '--- non iocage jails currently active ---':
+                if (re.match('^[-+=]*$', l) is not None or
+                        l == '--- non iocage jails currently active ---'):
                     break
                 jails.append({
                     headers[k]: v for k, v in enumerate([_.strip() for _ in l.split('|')
