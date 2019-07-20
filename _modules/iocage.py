@@ -265,7 +265,7 @@ def fetch(release=None, **kwargs):
         return _exec('iocage fetch release=%s' % (release,))
 
 
-def create(jail_type="full", template_id=None, **kwargs):
+def create(jail_type="release", template_id=None, **kwargs):
     '''
     Create a new jail
 
@@ -275,7 +275,7 @@ def create(jail_type="full", template_id=None, **kwargs):
 
         salt '*' iocage.create [<option>] [<property=value>]
     '''
-    _options = ['full', 'clone', 'base', 'empty', 'template-clone']
+    _options = ['release', 'template-clone', 'base', 'empty']
 
     if jail_type not in _options:
         raise SaltInvocationError('Unknown option %s' % (jail_type,))
@@ -308,14 +308,14 @@ def create(jail_type="full", template_id=None, **kwargs):
                 'Tag %s already exists' % (kwargs['tag'],))
 
     pre_cmd = 'iocage create'
-    if jail_type == 'clone':
-        pre_cmd = 'iocage create -c'
+     if jail_type == 'release':
+        pre_cmd = 'iocage create -r' % (release_id)
+    if jail_type == 'template-clone':
+        pre_cmd = 'iocage clone -t %s' % (template_id)
     if jail_type == 'base':
         pre_cmd = 'iocage create -b'
     if jail_type == 'empty':
         pre_cmd = 'iocage create -e'
-    if jail_type == 'template-clone':
-        pre_cmd = 'iocage clone %s' % (template_id)
 
     # fetch a release if it's the first install
     existing_release = list_releases()
