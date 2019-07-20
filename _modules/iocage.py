@@ -65,7 +65,7 @@ def _parse_properties(**kwargs):
     Returns a rendered properties string used by iocage command line properties
     argument
     '''
-    default_properties = [p.split('=')[0] for p in _list_properties('defaults')]
+    default_properties = [p.split(':')[0] for p in _list_properties('defaults')]
     default_properties.append('pkglist')
 
     for prop in kwargs.keys():
