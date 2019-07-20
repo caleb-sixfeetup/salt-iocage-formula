@@ -143,7 +143,7 @@ def managed(name, properties=None, jail_type="release", template_id=None, **kwar
                 try:
                     if not __opts__['test']:
                         if properties is not None:
-                            __salt__['iocage.create'](name=name, jail_type=jail_type, template_id=template_id, **properties)
+                            __salt__['iocage.create'](name=name, jail_type=jail_type, release_id=release_id, template_id=template_id, **properties)
                         else:
                             __salt__['iocage.create'](name=name, **kwargs)
                 except Exception as e:
