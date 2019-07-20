@@ -72,18 +72,18 @@ def managed(name, properties=None, jail_type="full", template_id=None, **kwargs)
         jail_exists = False
 
         jails = __salt__['iocage.list_jails']().split('\n')
-        log.debug(jails)
+        log.debug("75: %s", jails)
         templates = __salt__['iocage.list_templates']().split('\n')
-        log.debug(templates)
+        log.debug("77: %s", templates)
         jails = jails + templates
         for jail in jails:
-            log.debug(jail)
+            log.debug("80: %s", jail)
             # check if the jails or templates list is empty which results in an empty string in the array
             if not jail:
                 continue
             jail_datas = {j.split('=')[0]: '='.join(j.split('=')[1:])
                           for j in jail.split(',')}
-            log.debug(jail_datas)
+            log.debug("86: %s", jail_datas)
             if jail_datas['TAG'] == name or jail_datas['UUID'] == name:
                 jail_exists = True
                 break
