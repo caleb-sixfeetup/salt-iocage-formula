@@ -135,7 +135,7 @@ def _manage_state(state, jail_name, **kwargs):
     '''
     existing_jails = _list()
     for jail in existing_jails:
-        if jail_name == jail['UUID'] or jail_name == jail['TAG']:
+        if jail_name == jail['UUID'] or jail_name == jail['TAG'] or jail_name == jail['NAME']:
             if ((state == 'start' and jail['STATE'] == 'down')
                     or (state == 'stop' and jail['STATE'] == 'up')
                     or state == 'restart'
@@ -149,7 +149,7 @@ def _manage_state(state, jail_name, **kwargs):
                     raise SaltInvocationError(
                         'jail %s is already stoped' % (jail_name,))
 
-    raise SaltInvocationError('jail uuid or tag does not exist' % (jail_name,))
+    raise SaltInvocationError('jail uuid or tag or name does not exist' % (jail_name,))
 
 
 def list_jails(**kwargs):
@@ -289,7 +289,8 @@ def create(jail_type="release", template_id=None, **kwargs):
         for tmpl in templates:
             tmpl_datas = {t.split('=')[0]: '='.join(t.split('=')[1:])
                           for t in tmpl.split(',')}
-            if tmpl_datas['TAG'] == template_id or tmpl_datas['UUID'] == template_id:
+            if (tmpl_datas['TAG'] == template_id or tmpl_datas['UUID'] == template_id or
+                    tmpl_datas['NAME'] == template_id ):
                 tmpl_exists = True
                 break
         if tmpl_exists == False:
@@ -299,13 +300,13 @@ def create(jail_type="release", template_id=None, **kwargs):
     # stringify the kwargs dict into iocage create properties format
     properties = _parse_properties(**kwargs)
 
-    # if we would like to specify a tag value for the jail
-    # check if another jail have not the same tag
-    if 'tag' in kwargs.keys():
+    # if we would like to specify a name value for the jail
+    # check if another jail have not the same name
+    if 'name' in kwargs.keys():
         existing_jails = _list()
-        if kwargs['tag'] in [k['TAG'] for k in existing_jails]:
+        if kwargs['name'] in [k['NAME'] for k in existing_jails]:
             raise SaltInvocationError(
-                'Tag %s already exists' % (kwargs['tag'],))
+                'Name %s already exists' % (kwargs['name'],))
 
     pre_cmd = 'iocage create'
     if jail_type == 'release':
