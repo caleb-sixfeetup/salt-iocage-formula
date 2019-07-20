@@ -265,7 +265,7 @@ def fetch(release=None, **kwargs):
         return _exec('iocage fetch release=%s' % (release,))
 
 
-def create(name=None, jail_type="release", template_id=None, **kwargs):
+def create(name=None, jail_type="release", release_id=None, template_id=None, **kwargs):
     '''
     Create a new jail
 
