@@ -143,9 +143,9 @@ def managed(name, properties=None, jail_type="release", template_id=None, **kwar
                 try:
                     if not __opts__['test']:
                         if properties is not None:
-                            __salt__['iocage.create'](tag=name, jail_type=jail_type, template_id=template_id, **properties)
+                            __salt__['iocage.create'](name=name, jail_type=jail_type, template_id=template_id, **properties)
                         else:
-                            __salt__['iocage.create'](tag=name, **kwargs)
+                            __salt__['iocage.create'](name=name, **kwargs)
                 except Exception as e:
                     log.debug('####### FAIL INSTALLING NEW JAIL')
                     log.debug(e)
