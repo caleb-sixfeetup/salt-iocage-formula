@@ -85,7 +85,7 @@ def _list(option=None, **kwargs):
     if option not in [None, '', '-t', '-r']:
         raise SaltInvocationError('Bad option name in command _list')
 
-    cmd = 'iocage list'
+    cmd = 'iocage list -h'
     if option == '-t' or option == '-r':
         cmd = '%s %s' % (cmd, option)
     lines = _exec(cmd, **kwargs).split('\n')
