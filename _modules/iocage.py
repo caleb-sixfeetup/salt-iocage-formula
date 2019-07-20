@@ -41,7 +41,7 @@ def _exec(cmd, output='stdout'):
     '''
     cmd_ret = __salt__['cmd.run_all'](cmd)
     if cmd_ret['retcode'] == 0:
-        return cmd_ret[output]
+        return cmd_ret[stdout]
     else:
         raise CommandExecutionError(
             'Error in command "%s" : %s' % (cmd, str(cmd_ret)))
