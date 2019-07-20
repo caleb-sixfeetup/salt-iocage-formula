@@ -60,7 +60,7 @@ def property(name, value, jail=None, **kwargs):
         return _property(name, value, jail, **kwargs)
 
 
-def managed(name, properties=None, jail_type="full", template_id=None, **kwargs):
+def managed(name, properties=None, jail_type="release", template_id=None, **kwargs):
     ret = {'name': name,
            'changes': {},
            'comment': '',
