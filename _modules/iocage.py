@@ -85,7 +85,7 @@ def _list(option=None, **kwargs):
     if option not in [None, '', '-t', '-r']:
         raise SaltInvocationError('Bad option name in command _list')
 
-    cmd = 'iocage list -h'
+    cmd = 'iocage list'
     if option == '-t' or option == '-r':
         cmd = '%s %s' % (cmd, option)
     lines = _exec(cmd, **kwargs).split('\n')
@@ -94,7 +94,7 @@ def _list(option=None, **kwargs):
         if option == '-r':
             headers = ['RELEASE']
         else:
-            headers = [_ for _ in lines[0].split(' ') if len(_) > 0]
+            headers = [_.strip() for _ in lines[0].split('|') if len(_) > 0]
         
         jails = []
         if len(lines) > 1:
@@ -104,7 +104,7 @@ def _list(option=None, **kwargs):
                 if l == '--- non iocage jails currently active ---':
                     break
                 jails.append({
-                    headers[k]: v for k, v in enumerate([_ for _ in l.split(' ')
+                    headers[k]: v for k, v in enumerate([_.strip() for _ in l.split('|')
                                                          if len(_) > 0])
                 })
         log.debug("110: %s",jails)
