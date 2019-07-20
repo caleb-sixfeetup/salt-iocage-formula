@@ -89,7 +89,7 @@ def _list(option=None, **kwargs):
     if option == '-t' or option == '-r':
         cmd = '%s %s' % (cmd, option)
     lines = _exec(cmd, **kwargs).split('\n')
-    log.debug('%s',lines)
+    log.debug('92:  %s',lines)
     if len(lines) > 0:
         if option == '-r':
             headers = ['RELEASE']
@@ -99,7 +99,7 @@ def _list(option=None, **kwargs):
         jails = []
         if len(lines) > 1:
             for l in lines[1:]:
-                log.debug("%s",l)
+                log.debug("102: %s",l)
                 # omit all non-iocage jails
                 if l == '--- non iocage jails currently active ---':
                     break
@@ -107,7 +107,7 @@ def _list(option=None, **kwargs):
                     headers[k]: v for k, v in enumerate([_ for _ in l.split(' ')
                                                          if len(_) > 0])
                 })
-
+        log.debug("110: %s",jails)
         return jails
     else:
         raise CommandExecutionError(
