@@ -265,7 +265,7 @@ def fetch(release=None, **kwargs):
         return _exec('iocage fetch release=%s' % (release,))
 
 
-def create(jail_type="release", template_id=None, **kwargs):
+def create(name=None, jail_type="release", template_id=None, **kwargs):
     '''
     Create a new jail
 
@@ -302,11 +302,11 @@ def create(jail_type="release", template_id=None, **kwargs):
 
     # if we would like to specify a name value for the jail
     # check if another jail have not the same name
-    if 'name' in kwargs.keys():
+    if name is not None:
         existing_jails = _list()
-        if kwargs['name'] in [k['NAME'] for k in existing_jails]:
+        if name in [k['NAME'] for k in existing_jails]:
             raise SaltInvocationError(
-                'Name %s already exists' % (kwargs['name'],))
+                'Name %s already exists' % (name,))
 
     pre_cmd = 'iocage create'
     if jail_type == 'release':
@@ -328,10 +328,10 @@ def create(jail_type="release", template_id=None, **kwargs):
         if kwargs['release'] not in existing_release:
             fetch(release=kwargs['release'])
 
-    if len(properties) > 0:
-        cmd = '%s %s' % (pre_cmd, properties)
+    if name:
+        cmd = '%s -n %s %s' % (pre_cmd, name, properties)
     else:
-        cmd = 'iocage create %s' % (properties,)
+        cmd = '%s %s' % (pre_cmd, properties)
     return _exec(cmd)
 
 
