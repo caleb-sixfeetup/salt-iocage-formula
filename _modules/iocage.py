@@ -308,7 +308,7 @@ def create(jail_type="release", template_id=None, **kwargs):
                 'Tag %s already exists' % (kwargs['tag'],))
 
     pre_cmd = 'iocage create'
-     if jail_type == 'release':
+    if jail_type == 'release':
         pre_cmd = 'iocage create -r' % (release_id)
     if jail_type == 'template-clone':
         pre_cmd = 'iocage clone -t %s' % (template_id)
