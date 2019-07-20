@@ -84,7 +84,7 @@ def managed(name, properties=None, jail_type="full", template_id=None, **kwargs)
             jail_datas = {j.split('=')[0]: '='.join(j.split('=')[1:])
                           for j in jail.split(',')}
             log.debug("86: %s", jail_datas)
-            if jail_datas['TAG'] == name or jail_datas['UUID'] == name:
+            if jail_datas['NAME'] == name:
                 jail_exists = True
                 break
     except Exception as e:
