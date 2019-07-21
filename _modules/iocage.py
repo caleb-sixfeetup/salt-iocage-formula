@@ -135,7 +135,7 @@ def _manage_state(state, jail_name, **kwargs):
     '''
     existing_jails = _list()
     for jail in existing_jails:
-        if jail_name == jail['UUID'] or jail_name == jail['TAG'] or jail_name == jail['NAME']:
+        if jail_name == jail['NAME']:
             if ((state == 'start' and jail['STATE'] == 'down')
                     or (state == 'stop' and jail['STATE'] == 'up')
                     or state == 'restart'
