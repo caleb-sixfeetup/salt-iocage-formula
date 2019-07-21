@@ -310,7 +310,7 @@ def create(name=None, jail_type="release", release_id=None, template_id=None, **
 
     pre_cmd = 'iocage create'
     if jail_type == 'release':
-        pre_cmd = 'iocage create -r' % (release_id)
+        pre_cmd = 'iocage create -r %s' % (release_id)
     if jail_type == 'template-clone':
         pre_cmd = 'iocage clone -t %s' % (template_id)
     if jail_type == 'base':
