@@ -299,6 +299,7 @@ def create(name=None, jail_type="release", release_id=None, template_id=None, **
 
     # stringify the kwargs dict into iocage create properties format
     properties = _parse_properties(**kwargs)
+    properties.pop("state", None)
 
     # if we would like to specify a name value for the jail
     # check if another jail have not the same name
