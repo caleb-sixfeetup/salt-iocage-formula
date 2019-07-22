@@ -121,7 +121,11 @@ def managed(name, properties=None, jail_type="release", release_id=None, templat
                                 changes[prop_name] = {
                                     'new': prop_value,
                                     'old': jail_properties[prop_name]}
-
+                                
+                                if prop_name == 'state':
+                                    __salt__['iocage.manage_state'](prop_value, name)
+                                    continue
+                                                                    
                                 __salt__['iocage.set_property'](
                                     name,
                                     **{prop_name: prop_value})
