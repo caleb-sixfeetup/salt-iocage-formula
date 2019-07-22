@@ -387,6 +387,12 @@ def destroy(jail_name, **kwargs):
     return _manage_state('destroy', jail_name, **kwargs)
 
 
+def manage_state(state, jail_name, **kwargs):
+    '''
+    Start / Stop / Reboot / Destroy a jail `jail_name`
+    '''
+    return _manage_state(state, jail_name, **kwargs)
+
 if __name__ == "__main__":
     __salt__ = ''
 
