@@ -68,6 +68,7 @@ def _parse_properties(**kwargs):
     default_properties = [p.split(':')[0] for p in _list_properties('defaults')]
     default_properties.append('pkglist')
 
+    kwargs.pop("state", None)
     for prop in kwargs.keys():
         if not prop.startswith('__') and prop not in default_properties:
             raise SaltInvocationError('Unknown property %s' % (prop,))
@@ -299,7 +300,6 @@ def create(name=None, jail_type="release", release_id=None, template_id=None, **
 
     # stringify the kwargs dict into iocage create properties format
     properties = _parse_properties(**kwargs)
-    properties.pop("state", None)
 
     # if we would like to specify a name value for the jail
     # check if another jail have not the same name
