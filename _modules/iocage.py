@@ -391,6 +391,10 @@ def manage_state(state, jail_name, **kwargs):
     '''
     Start / Stop / Reboot / Destroy a jail `jail_name`
     '''
+    if state == 'up':
+        state = 'start'
+    if state == 'down':
+        state = 'stop'
     return _manage_state(state, jail_name, **kwargs)
 
 if __name__ == "__main__":
