@@ -146,6 +146,7 @@ def managed(name, properties=None, jail_type="release", release_id=None, templat
                 # install / create the jail
                 try:
                     if not __opts__['test']:
+                        properties.pop("state", None)
                         if properties is not None:
                             __salt__['iocage.create'](name=name, jail_type=jail_type, release_id=release_id, template_id=template_id, **properties)
                         else:
