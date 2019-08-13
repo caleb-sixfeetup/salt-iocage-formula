@@ -156,12 +156,12 @@ def get_active():
     cmd = 'iocage get -p'
     return _exec(cmd).split('\n')
 
-def activate(zpool):
+def activate(name):
     if not zpool:
         raise SaltInvocationError(
-            'zpool argument %s must not be null' % (zpool,))
+            'zpool argument %s must not be null' % (name,))
 
-    cmd = 'iocage activate %s' % (zpool,)
+    cmd = 'iocage activate %s' % (name,)
 
     return _exec(cmd).split('\n')
 

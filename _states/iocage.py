@@ -59,10 +59,10 @@ def property(name, value, jail=None, **kwargs):
     else:
         return _property(name, value, jail, **kwargs)
 
-def activate(zpool):
+def activate(name):
     try:
-        if zpool != __salt__['iocage.get_active']():
-            __salt__['iocage.activate'](zpool)
+        if name != __salt__['iocage.get_active']():
+            __salt__['iocage.activate'](name)
         return ret
     except Exception as e:
         log.debug("########## UNABLE TO ACTIVATE ZPOOL")
