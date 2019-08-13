@@ -154,7 +154,7 @@ def _manage_state(state, jail_name, **kwargs):
 
 def get_active():
     cmd = 'iocage get -p'
-    return _exec(cmd).split('\n')
+    return _exec(cmd)
 
 def activate(name):
     if not name:
@@ -163,7 +163,7 @@ def activate(name):
 
     cmd = 'iocage activate %s' % (name,)
 
-    return _exec(cmd).split('\n')
+    return _exec(cmd)
 
 
 def list_jails(**kwargs):
