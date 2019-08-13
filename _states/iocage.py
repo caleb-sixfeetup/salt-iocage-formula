@@ -66,7 +66,7 @@ def activate(name):
     'result': False}
     try:
         if name != __salt__['iocage.get_active']():
-            ret['changes'] = __salt__['iocage.activate'](name)
+            ret['changes'] = {__salt__['iocage.activate'](name)}
             ret['result'] = True
         return ret
     except Exception as e:
