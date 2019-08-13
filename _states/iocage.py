@@ -65,10 +65,15 @@ def activate(name):
     'comment': '',
     'result': False}
     try:
-        if name != __salt__['iocage.get_active']():
+        current = __salt__['iocage.get_active']()
+        if name == current:
+            ret['result'] = True
+            return ret
+        else:
             ret['changes'] = {__salt__['iocage.activate'](name)}
             ret['result'] = True
-        return ret
+            return ret
+        
     except Exception as e:
         log.debug("########## UNABLE TO ACTIVATE ZPOOL")
         log.debug(e)
