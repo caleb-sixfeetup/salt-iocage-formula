@@ -3,7 +3,7 @@
 {% if rawmap.zpool %}
 iocage_{{rawmap.zpool}}_zpool:
   iocage.activate:
-      - zpool: {{rawmap.zpool}}
+      - name: {{rawmap.zpool}}
 {% endif %}
 
 {% if rawmap.defaults is defined %}
