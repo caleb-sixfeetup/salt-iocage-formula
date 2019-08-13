@@ -70,11 +70,13 @@ def activate(name):
         current = __salt__['iocage.get_active']()
         log.debug(current)
         log.debug(72)
+        return True
         if name == current['stdout']:
             ret['result'] = True
             log.debug(ret)
             log.debug(76)
             return ret
+        return True
         else:
             log.debug(79)
             ret['changes'] = { 'Changes': __salt__['iocage.activate'](name)}
