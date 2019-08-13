@@ -157,7 +157,7 @@ def get_active():
     return _exec(cmd).split('\n')
 
 def activate(name):
-    if not zpool:
+    if not name:
         raise SaltInvocationError(
             'zpool argument %s must not be null' % (name,))
 
