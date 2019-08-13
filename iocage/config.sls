@@ -1,5 +1,11 @@
 {% set rawmap = salt['pillar.get']('iocage') %}
 
+{% if rawmap.zpool %}
+iocage_{{rawmap.zpool}}_zpool:
+  iocage.activate:
+      zpool: {{rawmap.zpool}}
+{% endif %}
+
 {% if rawmap.defaults is defined %}
     {% for property_name, property_value in rawmap.defaults.items() %}
 iocage_{{property_name}}_default_property:

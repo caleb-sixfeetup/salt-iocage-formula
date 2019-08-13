@@ -59,6 +59,15 @@ def property(name, value, jail=None, **kwargs):
     else:
         return _property(name, value, jail, **kwargs)
 
+def activate(zpool)
+    try:
+        if zpool != __salt__['iocage.get_active']():
+            __salt__['iocage.activate'](zpool)
+        return ret
+    except Exception as e:
+        log.debug("########## UNABLE TO ACTIVATE ZPOOL")
+        log.debug(e)
+        return ret
 
 def managed(name, properties=None, jail_type="release", release_id=None, template_id=None, **kwargs):
     ret = {'name': name,

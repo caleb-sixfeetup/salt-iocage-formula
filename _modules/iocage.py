@@ -152,6 +152,19 @@ def _manage_state(state, jail_name, **kwargs):
 
     raise SaltInvocationError('jail uuid or tag or name does not exist' % (jail_name,))
 
+def get_active():
+    cmd = 'iocage get -p'
+    return _exec(cmd).split('\n')
+
+def activate(zpool):
+    if not zpool:
+        raise SaltInvocationError(
+            'zpool argument %s must not be null' % (zpool,))
+
+    cmd = 'iocage activate %s' % (zpool,)
+
+    return _exec(cmd).split('\n')
+
 
 def list_jails(**kwargs):
     '''
