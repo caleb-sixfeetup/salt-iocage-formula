@@ -261,9 +261,9 @@ def fetch(release=None, **kwargs):
     '''
     if release is None:
         current_release = _exec('uname -r').strip()
-        return _exec('iocage fetch release=%s' % (current_release,))
+        return _exec('iocage fetch --release=%s' % (current_release,))
     else:
-        return _exec('iocage fetch release=%s' % (release,))
+        return _exec('iocage fetch --release=%s' % (release,))
 
 
 def create(name=None, jail_type="release", release_id=None, template_id=None, **kwargs):
