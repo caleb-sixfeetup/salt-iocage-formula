@@ -6,4 +6,4 @@ fdescfs_mount:
     mount.mounted:
         - name: /dev/fd
         - fstype: fdescfs
-        - device: "null"
+        - device: fdesc
