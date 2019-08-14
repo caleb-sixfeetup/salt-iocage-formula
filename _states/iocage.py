@@ -78,8 +78,8 @@ def activate(name):
             except:
                 ret['result'] = False
             else:
-            ret['changes'] = { 'new': name, 'old': old}
-            ret['result'] = True
+                ret['changes'] = { 'new': name, 'old': old}
+                ret['result'] = True
         else:
             ret['result'] = True
 
