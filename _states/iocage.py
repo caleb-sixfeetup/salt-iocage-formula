@@ -65,29 +65,27 @@ def activate(name):
     'comment': '',
     'result': False}
     try:
-        log.debug(68)
-        log.debug(name)
-        current = __salt__['iocage.get_active']()
-        log.debug(current)
-        log.debug(72)
-        return True
-        if name == current['stdout']:
-            ret['result'] = True
-            log.debug(ret)
-            log.debug(76)
-            return ret
-        return True
-        else:
-            log.debug(79)
-            ret['changes'] = { 'Changes': __salt__['iocage.activate'](name)}
-            ret['result'] = True
-            return ret
-        return True
+        old = __salt__['iocage.get_active']()
     except Exception as e:
-        log.debug(85)
-        log.debug("########## UNABLE TO ACTIVATE ZPOOL")
-        log.debug(e)
+        ret['result'] = False
+        ret['comment'] = 'Unable to get active pool: %s' % (e)
         return ret
+    else:
+        log.debug('%s %s', name, old)
+        if name != old:
+            try:
+                __salt__['iocage.activate'](name)
+            except:
+                ret['result'] = False
+            else:
+            ret['changes'] = { 'new': name, 'old': old}
+            ret['result'] = True
+        else:
+            ret['result'] = True
+
+    return ret
+
+
 
 def managed(name, properties=None, jail_type="release", release_id=None, template_id=None, **kwargs):
     ret = {'name': name,
